@@ -1,12 +1,15 @@
 
+import { useSelector } from 'react-redux'
 import './App.css'
-import SignUp from './components/SignUp'
+import Login from './components/Auth/Login'
+
 
 function App() {
+  const auth = useSelector((state)=> state.auth.isAuthenticated)
   
   return (
  <>
-<SignUp/>
+{auth && <Login/>}
  </>
   )
 }

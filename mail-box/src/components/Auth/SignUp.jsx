@@ -5,31 +5,33 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPass) {
       alert("Passwords do not match!");
       return;
     }
-    
-        try{
-            const res =await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDxCfHIwgrWuHlbXj3EbWcpiVthuK4RhjQ`,{ method:"POST",
-                body:JSON.stringify({
-                    email:email,
-                    password:password,
-                    returnSecureToken: true,
-                }),
-                headers:{
-                    "Content-Type":"application/json"
-                },
-              });
-              const resData = await res.json()
-              console.log(resData)
-        }catch(err){
-            console.log(err)
+
+    try {
+      const res = await fetch(
+        `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDxCfHIwgrWuHlbXj3EbWcpiVthuK4RhjQ`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-     
-    
+      );
+      const resData = await res.json();
+      console.log(resData);
+    } catch (err) {
+      console.log(err);
+    }
+
     setEmail("");
     setPassword("");
     setConfirmPass("");
