@@ -2,6 +2,7 @@
 import { useSelector } from 'react-redux'
 import './App.css'
 import Login from './components/Auth/Login'
+import Home from './components/Home/Home'
 
 
 function App() {
@@ -9,7 +10,10 @@ function App() {
   
   return (
  <>
-{auth && <Login/>}
+{!auth && <Login/>}
+{auth &&
+<Home/>
+}
  </>
   )
 }
