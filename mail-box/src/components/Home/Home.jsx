@@ -57,6 +57,9 @@ function Home() {
 
 
     console.log(email, plainMessage, subject);
+    setEmail('')
+    setMessage('')
+    setSubject('')
   };
 
   return (
