@@ -1,3 +1,23 @@
+@import 'tailwindcss/tailwind.css';
+
+.toolbarClassName {
+  border: 1px solid #F1F1F1;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.wrapperClassName {
+  margin-bottom: 20px;
+}
+
+.editorClassName {
+  border: 1px solid #F1F1F1;
+  padding: 5px;
+  border-radius: 4px;
+  min-height: 200px;
+}
+
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;
