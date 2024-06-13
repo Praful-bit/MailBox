@@ -31,12 +31,30 @@ function Home() {
   const module = {
     toolbar: toolbarOptions,
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
 
     // Get the plain text from the editor
     const editor = quillRef.current.getEditor();
     const plainMessage = editor.getText(); // This gets the plain text without any HTML tags
+   try{
+    const res = await fetch (`https://mail-box-1c3dd-default-rtdb.firebaseio.com/mail.json`,{
+      method:"POST",
+      body:JSON.stringify({
+        email:email,
+        subject:subject,
+        message:plainMessage
+      }),
+      headers:{
+        "Content-type":"application/json"
+      }
+     })
+     const resData = await res.json()
+     console.log(resData)
+   }catch(err){
+    console.log("In MailBox Means Text Editor",err)
+   }
+
 
     console.log(email, plainMessage, subject);
   };
