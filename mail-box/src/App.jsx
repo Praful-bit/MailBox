@@ -14,6 +14,7 @@ function App() {
           <div>
             <Inbox />
             <Outlet />
+            
           </div>
        
       }
