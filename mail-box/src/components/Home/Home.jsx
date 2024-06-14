@@ -1,12 +1,19 @@
+// Home.jsx
 import { useState, useRef } from "react";
 import "../../App.css";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { mailAction } from "../../store/Mail";
+import { Link } from "react-router-dom";
 
 function Home() {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.mail.mail);
+  console.log(data);
   const quillRef = useRef(null);
   const toolbarOptions = [
     ["bold", "italic", "underline", "strike"], // toggled buttons
@@ -31,43 +38,47 @@ function Home() {
   const module = {
     toolbar: toolbarOptions,
   };
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     // Get the plain text from the editor
     const editor = quillRef.current.getEditor();
     const plainMessage = editor.getText(); // This gets the plain text without any HTML tags
-   try{
-    const res = await fetch (`https://mail-box-1c3dd-default-rtdb.firebaseio.com/mail.json`,{
-      method:"POST",
-      body:JSON.stringify({
-        email:email,
-        subject:subject,
-        message:plainMessage
-      }),
-      headers:{
-        "Content-type":"application/json"
-      }
-     })
-     const resData = await res.json()
-     console.log(resData)
-   }catch(err){
-    console.log("In MailBox Means Text Editor",err)
-   }
-
+    try {
+      const res = await fetch(`https://mail-box-1c3dd-default-rtdb.firebaseio.com/mail.json`, {
+        method: "POST",
+        body: JSON.stringify({
+          email: email,
+          subject: subject,
+          message: plainMessage
+        }),
+        headers: {
+          "Content-type": "application/json"
+        }
+      });
+      const resData = await res.json();
+      console.log(resData);
+      dispatch(mailAction.addMail(resData));
+    } catch (err) {
+      console.log("In MailBox Means Text Editor", err);
+    }
 
     console.log(email, plainMessage, subject);
-    setEmail('')
-    setMessage('')
-    setSubject('')
+    setEmail('');
+    setMessage('');
+    setSubject('');
   };
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
+      <Link to="/home"></Link>
       <form
         className="bg-white p-6 rounded-lg shadow-lg w-full h-full relative"
         onSubmit={handleSubmit}
       >
+        <Link to='/inbox'>
+      <button className="absolute top-0 right-0 ml-4 text-xl font-bold ">X</button>
+      </Link>
         <div className="mb-4">
           <input
             type="email"
