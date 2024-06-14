@@ -27,7 +27,7 @@ function InputBoxMailContent() {
 
   console.log(mailData);
   return (
-    <div className="h-screen bg-gray-100 py-4 px-4 w-full">
+    <div className=" bg-gray-100 py-4 px-4 w-full">
       <div className="w-full bg-white p-6 rounded-lg shadow-md">
         {mailData.length > 0 ? (
           mailData.map((data, index) => (

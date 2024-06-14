@@ -1,12 +1,12 @@
+import { Link } from "react-router-dom";
 import InputBoxMailContent from "./InputBoxMailContent";
-import InputSearch from "./InputSearch";
 import SlideBar from "./SlideBar";
 
 function Inbox() {
   return (
     <>
       <div className="flex-1">
-        <InputSearch />
+        <Link to="/inbox"></Link>
         <div className="flex">
           <SlideBar />
           <div className="flex mt-2 p-4 flex-col w-full">
