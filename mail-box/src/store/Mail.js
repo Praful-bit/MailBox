@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const MailState = {
 mail:[],
-toggle:false
+toggle:true
 }
 
 const MailSlice = createSlice({

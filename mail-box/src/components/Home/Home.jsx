@@ -5,7 +5,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { mailAction } from "../../store/Mail";
-import { Link } from "react-router-dom";
+
 
 function Home() {
   const [email, setEmail] = useState("");
@@ -13,6 +13,7 @@ function Home() {
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
   const data = useSelector((state) => state.mail.mail);
+  const toggle = useSelector((state)=>state.mail.toggle)
   console.log(data);
   const quillRef = useRef(null);
   const toolbarOptions = [
@@ -71,14 +72,14 @@ function Home() {
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
-      <Link to="/home"></Link>
-      <form
+      
+    {!toggle && <form
         className="bg-white p-6 rounded-lg shadow-lg w-full h-full relative"
         onSubmit={handleSubmit}
       >
-        <Link to='/inbox'>
-      <button className="absolute top-0 right-0 ml-4 text-xl font-bold ">X</button>
-      </Link>
+        
+      <button className="absolute top-0 right-0 ml-4 text-xl font-bold " onClick={()=> dispatch(mailAction.toggleCompose())}>X</button>
+      
         <div className="mb-4">
           <input
             type="email"
@@ -115,7 +116,7 @@ function Home() {
         >
           Send
         </button>
-      </form>
+      </form>}
     </div>
   );
 }
