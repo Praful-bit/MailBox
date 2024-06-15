@@ -1,28 +1,44 @@
 /* eslint-disable react/prop-types */
+import { useSelector } from "react-redux";
 import { mailAction } from "../../store/Mail";
 
-
-function SlideBar({dispatch}) {
-
- return (
-    <div className="bg-gray-300 h-screen w-60">
-      
-       
-        <button onClick={()=> dispatch(mailAction.toggleCompose())} className="left-0 bg-blue-500 rounded-lg font-serif cursor-pointer w-52 h-18 text-xl hover:bg-sky-500 hover:text-white p-2 ml-3 mr-2 mt-3">
-          Compose
-        </button>
-     
-      <ul className="mt-4 ml-3">
-        <li className="mt-2 cursor-pointer hover:text-blue-500">Inbox</li>
-        <li className="mt-2 cursor-pointer hover:text-blue-500">Unread</li>
-        <li className="mt-2 cursor-pointer hover:text-blue-500">Starred</li>
-        <li className="mt-2 cursor-pointer hover:text-blue-500">Sent</li>
-        <li className="mt-2 cursor-pointer hover:text-blue-500">Drafts</li>
-        <li className="mt-2 cursor-pointer hover:text-blue-500">Archive</li>
-        <li className="mt-2 cursor-pointer hover:text-blue-500">Spam</li>
-        <li className="mt-2 cursor-pointer hover:text-blue-500">Deleted Items</li>
+function SlideBar({ dispatch }) {
+  const getData = useSelector((state) => state.mail.mail);
+  const  unreadeCount = useSelector((state)=>state.mail. unreadeCount)
+  return (
+    <div className="bg-gray-800 h-screen w-60 p-4">
+      <button
+        onClick={() => dispatch(mailAction.toggleCompose())}
+        className="bg-blue-600 rounded-lg font-serif cursor-pointer w-full h-12 text-xl hover:bg-blue-700 hover:text-white p-2 mb-4"
+      >
+        Compose
+      </button>
+      <ul className="space-y-2">
+        <li className="cursor-pointer hover:text-blue-400 rounded-lg bg-gray-700 p-2 text-white flex justify-between items-center">
+          Inbox <span className="bg-blue-500 text-white rounded-full px-2 py-1 text-xs">{getData.length}</span>
+        </li>
+        <li className="cursor-pointer hover:text-blue-400 rounded-lg bg-gray-700 p-2 text-white">
+          Unread <span className="bg-red-400 text-white rounded-full px-2 py-1 text-xs">{ unreadeCount}</span>
+        </li>
+        <li className="cursor-pointer hover:text-blue-400 rounded-lg bg-gray-700 p-2 text-white">
+          Starred
+        </li>
+        <li className="cursor-pointer hover:text-blue-400 rounded-lg bg-gray-700 p-2 text-white">
+          Sent
+        </li>
+        <li className="cursor-pointer hover:text-blue-400 rounded-lg bg-gray-700 p-2 text-white">
+          Drafts
+        </li>
+        <li className="cursor-pointer hover:text-blue-400 rounded-lg bg-gray-700 p-2 text-white">
+          Archive
+        </li>
+        <li className="cursor-pointer hover:text-blue-400 rounded-lg bg-gray-700 p-2 text-white">
+          Spam
+        </li>
+        <li className="cursor-pointer hover:text-blue-400 rounded-lg bg-gray-700 p-2 text-white">
+          Deleted Items
+        </li>
       </ul>
-       
     </div>
   );
 }
