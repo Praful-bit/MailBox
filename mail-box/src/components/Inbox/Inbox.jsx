@@ -1,9 +1,8 @@
-import InputBoxMailContent from "./InputBoxMailContent";
 import InputSearch from "./InputSearch";
 import SlideBar from "./SlideBar";
 import { useDispatch, useSelector } from "react-redux";
 import Home from '../Home/Home'
-import { Link } from "react-router-dom";
+import {  Outlet } from "react-router-dom";
 
 function Inbox() {
   const toggle = useSelector((state) => state.mail.toggle);
@@ -15,7 +14,7 @@ function Inbox() {
         <Home />
       ) : (
         <div className="flex-1">
-          <Link to="/inbox"></Link>
+          {/* <Link to="/inbox"></Link> */}
           <InputSearch />
           <div className="flex">
             <SlideBar dispatch={dispatch} />
@@ -91,7 +90,7 @@ function Inbox() {
                   <p className="text-lg">Spam</p>
                 </div>
               </div>
-              <InputBoxMailContent />
+           <Outlet /> 
             </div>
           </div>
         </div>

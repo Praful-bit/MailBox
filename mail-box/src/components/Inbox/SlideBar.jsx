@@ -26,9 +26,11 @@ function SlideBar({ dispatch }) {
         <li className="cursor-pointer hover:text-blue-400 rounded-lg bg-gray-700 p-2 text-white">
           Starred
         </li>
-        <li className="cursor-pointer hover:text-blue-400 rounded-lg bg-gray-700 p-2 text-white">
+      <Link to="/sentmail">
+      <li className="cursor-pointer hover:text-blue-400 rounded-lg bg-gray-700 p-2 text-white mt-2">
           Sent
         </li>
+      </Link>
         <li className="cursor-pointer hover:text-blue-400 rounded-lg bg-gray-700 p-2 text-white">
           Drafts
         </li>

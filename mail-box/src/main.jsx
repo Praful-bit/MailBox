@@ -5,12 +5,14 @@ import "./index.css";
 import { Provider } from "react-redux";
 import store from "./store/index.js";
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
-import Inbox from "./components/Inbox/Inbox.jsx";
+import SentMail from "./components/SentMail/SentMail.jsx";
+import InputBoxMailContent from "./components/Inbox/InputBoxMailContent.jsx";
 
 const router  = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App/>}>
-     <Route path="/inbox" element={<Inbox/>}/>
+     <Route path="/inbox" element={<InputBoxMailContent/>}/>
+     <Route path ="/sentmail" element={<SentMail/>}/>
     </Route>
   )
 )

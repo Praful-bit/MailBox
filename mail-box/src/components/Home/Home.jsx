@@ -71,7 +71,7 @@ function Home() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <div className="flex items-center justify-center w-full h-screen bg-gray-100">
       
     {!toggle && <form
         className="bg-white p-6 rounded-lg shadow-lg w-full h-full relative"
