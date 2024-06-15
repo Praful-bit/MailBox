@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { mailAction } from "../../store/Mail";
 import ReadMail from "../ReadMail/ReadMail"; 
+
 function InputBoxMailContent() {
   const mailData = useSelector((state) => state.mail.mail);
   const selectedMailId = useSelector((state) => state.mail.selectedMailId); // Get the selected mail ID from the state
@@ -41,10 +42,13 @@ function InputBoxMailContent() {
               mailData.map((data) => (
                 <div
                   key={data.id}
-                  className="mb-6 p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200 cursor-pointer"
-                  onClick={() => handleMailClick(data.id)} 
+                  className="mb-6 p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200 cursor-pointer flex items-center"
                 >
-                  <ul className="list-none flex items-center">
+                  <input 
+                    className="mr-4 w-3 h-3 text-blue-600 border-gray-300 rounded focus:ring-blue-500" 
+                    type="checkbox" 
+                  />
+                  <ul className="list-none flex flex-1 items-center" onClick={() => handleMailClick(data.id)} >
                     <li className="flex-1 text-black">{data.email}</li>
                     <li>
                       <svg

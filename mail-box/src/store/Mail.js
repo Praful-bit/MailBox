@@ -36,6 +36,9 @@ const MailSlice = createSlice({
     clearSelectedMail(state) {
       state.selectedMailId = null; // Clear selected mail ID
     },
+    deleteMail(state,action){
+    state.mail = state.mail.filter((mail)=> mail.id !== action.payload.id )
+    }
   },
 });
 

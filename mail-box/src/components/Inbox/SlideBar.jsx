@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useSelector } from "react-redux";
 import { mailAction } from "../../store/Mail";
+import { Link } from "react-router-dom";
 
 function SlideBar({ dispatch }) {
   const getData = useSelector((state) => state.mail.mail);
@@ -14,9 +15,11 @@ function SlideBar({ dispatch }) {
         Compose
       </button>
       <ul className="space-y-2">
-        <li className="cursor-pointer hover:text-blue-400 rounded-lg bg-gray-700 p-2 text-white flex justify-between items-center">
+       <Link to="/inbox">
+       <li className="cursor-pointer hover:text-blue-400 rounded-lg bg-gray-700 p-2 text-white flex justify-between items-center">
           Inbox <span className="bg-blue-500 text-white rounded-full px-2 py-1 text-xs">{getData.length}</span>
         </li>
+       </Link>
         <li className="cursor-pointer hover:text-blue-400 rounded-lg bg-gray-700 p-2 text-white">
           Unread <span className="bg-red-400 text-white rounded-full px-2 py-1 text-xs">{ unreadeCount}</span>
         </li>
