@@ -1,32 +1,35 @@
-import {useEffect} from 'react'
+// import {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { mailAction } from '../../store/Mail';
 import { Link } from 'react-router-dom';
 import ReadMailForSent from '../ReadMail/ReadMailForSent';
+import UseFetch from '../Hooks/UseFetch';
 
 function SentMail() {
-    const mailData = useSelector((state) => state.mail.mail);
+    // const mailData = useSelector((state) => state.mail.mail);
     const selectedMailId = useSelector((state) => state.mail.selectedMailId); // Get the selected mail ID from the state
     const dispatch = useDispatch();
   
-    useEffect(() => {
-      const getMailData = async () => {
-        try {
-          const res = await fetch(
-            `https://mail-box-1c3dd-default-rtdb.firebaseio.com/mail.json`
-          );
-          const resDta = await res.json();
-          const arr = [];
-          for (const key in resDta) {
-            arr.push({ id: key, ...resDta[key] }); 
-          }
-          dispatch(mailAction.getMail(arr));
-        } catch (err) {
-          console.log(err);
-        }
-      };
-      getMailData();
-    }, [dispatch]);
+    // useEffect(() => {
+    //   const getMailData = async () => {
+    //     try {
+    //       const res = await fetch(
+    //         `https://mail-box-1c3dd-default-rtdb.firebaseio.com/mail.json`
+    //       );
+    //       const resData = await res.json();
+    //       const arr = [];
+    //       for (const key in resData) {
+    //         arr.push({ id: key, ...resData[key] }); 
+    //       }
+    //       dispatch(mailAction.getMail(arr));
+    //     } catch (err) {
+    //       console.log(err);
+    //     }
+    //   };
+    //   getMailData();
+    // }, [dispatch]);
+
+    const [mailData] = UseFetch(`https://mail-box-1c3dd-default-rtdb.firebaseio.com/mail.json`)
   
     const handleClick = (id) => {
       dispatch(mailAction.selectMail(id)); 
