@@ -29,7 +29,7 @@ console.log(data)
 
   useEffect(() => {
     get();
-  }, [dispatch,]); 
+  }, [dispatch]); 
 
   const handleMailClick = (id) => {
     dispatch(mailAction.selectMail(id));
@@ -48,7 +48,7 @@ console.log(data)
                 <div
                   key={mail.id}
                   className="mb-6 p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200 cursor-pointer flex items-center"
-                  onClick={() => handleMailClick(mail.id)} // Handle mail click here
+                  onClick={() => handleMailClick(mail.id)} 
                 >
                   <input
                     className="mr-4 w-3 h-3 text-blue-600 border-gray-300 rounded focus:ring-blue-500"

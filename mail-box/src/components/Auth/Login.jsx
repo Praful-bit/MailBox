@@ -32,7 +32,7 @@ function Login() {
         setError("Invalid email or password. Please try again.");
       } else {
         dispatch(authAction.login(resData.idToken));
-        localStorage.setItem('email',resData.email)
+        // localStorage.setItem('email',resData.email)
         setError("");
       }
     } catch (err) {

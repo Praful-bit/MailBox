@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const MailState = {
   mail: [],
   send:[],
-  email:localStorage.getItem('email'?.replace(/[@.]/g),'')||"",
   toggle: true,
   selectedMailId: null, 
   unreadeCount: 0,
@@ -36,7 +35,7 @@ const MailSlice = createSlice({
       }
     },
     clearSelectedMail(state) {
-      state.selectedMailId = null; // Clear selected mail ID
+      state.selectedMailId = null; // Clear the selected mail ID
     },
     deleteMail(state,action){
     state.mail = state.mail.filter((mail)=> mail.id !== action.payload.id )

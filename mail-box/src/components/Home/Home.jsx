@@ -37,15 +37,15 @@ function Home() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const senderEmail = localStorage.getItem('email');
+   
     const url = `https://mail-box-1c3dd-default-rtdb.firebaseio.com/`;
     const editor = quillRef.current.getEditor();
     const plainMessage = editor.getText();
-    const replaceSenderMail = senderEmail?.replace(/[@.]/g, "");
+    
 
     const sendData = { email, subject, plainMessage };
     if (sendData.email !== null) {
-      await sendMail(`${url}/${replaceSenderMail}/sent.json`, sendData);
+      await sendMail(`${url}/mail.json`, sendData);
     }
 
     const receive = { email, subject, plainMessage };
@@ -54,7 +54,6 @@ function Home() {
     }
 
     console.log(email, plainMessage, subject);
-    localStorage.setItem('email',email)
     setEmail('');
     setMessage('');
     setSubject('');

@@ -37,7 +37,7 @@ function ReadMailForSent({mailId}) {
             </button>
           </div>
           <p className="text-gray-700 mb-4 text-lg">{mail.subject}</p>
-          <p className="text-gray-600">{mail.message}</p>
+          <p className="text-gray-600">{mail.plainMessage}</p>
         </div>
       ) : (
         <p className="text-gray-800">No mail selected.</p>

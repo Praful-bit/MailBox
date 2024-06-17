@@ -29,9 +29,8 @@ function SentMail() {
     //   getMailData();
     // }, [dispatch]);
     const url = `https://mail-box-1c3dd-default-rtdb.firebaseio.com`
-    const  senderEmail = localStorage.getItem('email')
-    const userEmail = senderEmail.replace(/[@.]/g,'')
-    const [mailData] = UseFetch(`${url}/${userEmail}/sent.json`)
+  
+    const [mailData] = UseFetch(`${url}/mail.json`)
   
     const handleClick = (id) => {
       dispatch(mailAction.selectMail(id)); 
