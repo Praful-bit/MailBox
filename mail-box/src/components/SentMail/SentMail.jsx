@@ -28,13 +28,15 @@ function SentMail() {
     //   };
     //   getMailData();
     // }, [dispatch]);
-
-    const [mailData] = UseFetch(`https://mail-box-1c3dd-default-rtdb.firebaseio.com/mail.json`)
+    const url = `https://mail-box-1c3dd-default-rtdb.firebaseio.com`
+    const  senderEmail = localStorage.getItem('email')
+    const userEmail = senderEmail.replace(/[@.]/g,'')
+    const [mailData] = UseFetch(`${url}/${userEmail}/sent.json`)
   
     const handleClick = (id) => {
       dispatch(mailAction.selectMail(id)); 
     };
-  
+    
     return (
       <div className="bg-gray-100 py-4 px-4 w-full">
         <Link to="/sentmail" />
@@ -72,9 +74,10 @@ function SentMail() {
                       </svg>
                     </li> */}
                     <li className="flex-1 text-black">{data.subject}</li>
-                    <li className="flex-1 text-gray-400">{data.message}</li>
+                    <li className="flex-1 text-gray-400">{data.plainMessage}</li>
                   </ul>
                 </div>
+                
               ))
           }
           </div>

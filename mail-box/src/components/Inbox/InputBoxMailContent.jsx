@@ -1,59 +1,61 @@
 import { useDispatch, useSelector } from "react-redux";
 import { mailAction } from "../../store/Mail";
-import ReadMail from "../ReadMail/ReadMail"; 
+import ReadMail from "../ReadMail/ReadMail";
 import { Link } from "react-router-dom";
-import UseFetch from "../Hooks/UseFetch";
+import { useEffect } from "react";
 
 function InputBoxMailContent() {
-  // const mailData = useSelector((state) => state.mail.mail);
-  const selectedMailId = useSelector((state) => state.mail.selectedMailId); // Get the selected mail ID from the state
+const data = useSelector((state)=> state.mail.mail)
+console.log(data) 
+  const selectedMailId = useSelector((state) => state.mail.selectedMailId);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   const getMailData = async () => {
-  //     try {
-  //       const res = await fetch(
-  //         `https://mail-box-1c3dd-default-rtdb.firebaseio.com/mail.json`
-  //       );
-  //       const resDta = await res.json();
-  //       const arr = [];
-  //       for (const key in resDta) {
-  //         arr.push({ id: key, ...resDta[key] }); 
-  //       }
-  //       dispatch(mailAction.getMail(arr));
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getMailData();
-  // }, [dispatch]);
- 
-  const [mailData] = UseFetch(`https://mail-box-1c3dd-default-rtdb.firebaseio.com/mail.json`)
+  const url = `https://mail-box-1c3dd-default-rtdb.firebaseio.com/`;
+
+  
+  const get = async () => {
+    try {
+      const res = await fetch(`${url}/mail.json`);
+      const resData = await res.json();
+      const arr = [];
+      for (const key in resData) {
+        arr.push({ id: key, ...resData[key] });
+      } 
+      dispatch(mailAction.getMail(arr)); 
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    get();
+  }, [dispatch,]); 
 
   const handleMailClick = (id) => {
-    dispatch(mailAction.selectMail(id)); 
+    dispatch(mailAction.selectMail(id));
   };
 
   return (
     <div className="bg-gray-100 py-4 px-4 w-full">
       <Link to="/inbox"></Link>
       <div className="w-full bg-white p-4 rounded-lg shadow-md">
-        {selectedMailId ? ( 
+        {selectedMailId ? (
           <ReadMail mailId={selectedMailId} />
         ) : (
           <div>
-            {mailData.length > 0 ? (
-              mailData.map((data) => (
+            {data.length > 0 ? (
+              data.map((mail) => (
                 <div
-                  key={data.id}
+                  key={mail.id}
                   className="mb-6 p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200 cursor-pointer flex items-center"
+                  onClick={() => handleMailClick(mail.id)} // Handle mail click here
                 >
-                  <input 
-                    className="mr-4 w-3 h-3 text-blue-600 border-gray-300 rounded focus:ring-blue-500" 
-                    type="checkbox" 
+                  <input
+                    className="mr-4 w-3 h-3 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    type="checkbox"
                   />
-                  <ul className="list-none flex flex-1 items-center" onClick={() => handleMailClick(data.id)} >
-                    <li className="flex-1 text-black">{data.email}</li>
+                  <ul className="list-none flex flex-1 items-center">
+                    <li className="flex-1 text-black">{mail.email}</li>
                     <li>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -70,8 +72,8 @@ function InputBoxMailContent() {
                         />
                       </svg>
                     </li>
-                    <li className="flex-1 text-black">{data.subject}</li>
-                    <li className="flex-1 text-gray-400">{data.message}</li>
+                    <li className="flex-1 text-black">{mail.subject}</li>
+                    {/* <li className="flex-1 text-gray-400">{mail.plainMessage}</li> */}
                   </ul>
                 </div>
               ))

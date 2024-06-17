@@ -2,9 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const MailState = {
   mail: [],
+  send:[],
+  email:localStorage.getItem('email'?.replace(/[@.]/g),'')||"",
   toggle: true,
-  selectedMailId: null, // State for selected mail ID
-  unreadeCount: 0, //localStorage.setItem('mailState',JSON.stringify(state))
+  selectedMailId: null, 
+  unreadeCount: 0,
 };
 
 const MailSlice = createSlice({
@@ -12,7 +14,7 @@ const MailSlice = createSlice({
   initialState: MailState,
   reducers: {
     addMail(state, action) {
-      state.mail.push(action.payload);
+      state.send.push(action.payload);
       if (!action.payload.read) {
         state.unreadeCount += 1;
       }
