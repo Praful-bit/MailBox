@@ -6,6 +6,7 @@ const MailState = {
   toggle: true,
   selectedMailId: null, 
   unreadeCount: 0,
+  deleted: [],
 };
 
 const MailSlice = createSlice({
@@ -38,8 +39,24 @@ const MailSlice = createSlice({
       state.selectedMailId = null; // Clear the selected mail ID
     },
     deleteMail(state,action){
-    state.mail = state.mail.filter((mail)=> mail.id !== action.payload.id )
-    }
+      const mailToDelete = state.mail.find((mail)=> mail.id === action.payload.id );
+      if (mailToDelete) {
+        state.deleted.push(mailToDelete);
+      }
+      state.mail = state.mail.filter((mail)=> mail.id !== action.payload.id );
+    },
+    restoreMail(state, action) {
+      const mailToRestore = state.deleted.find((mail) => mail.id === action.payload.id);
+      if (mailToRestore) {
+        state.mail.push(mailToRestore);
+        state.deleted = state.deleted.filter((mail) => mail.id !== action.payload.id);
+        fetch(`https://mail-box-1c3dd-default-rtdb.firebaseio.com/mail.json`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(mailToRestore)
+        });
+      }
+    },
   },
 });
 

@@ -13,36 +13,38 @@ function ReadMailForSent({mailId}) {
     dispatch(mailAction.clearSelectedMail());
   };
   return (
-    <div>
-        <div className="flex flex-col h-full justify-center items-center bg-gray-100">
+    <div className="flex flex-col h-full justify-center items-center min-h-[60vh]">
       {mail ? (
-        <div className="w-full bg-white shadow-md p-6 rounded-lg">
-          <div className="flex justify-between items-center mb-4">
-            <h1 className="text-2xl font-bold text-gray-800">{mail.email}</h1>
+        <div className="w-full max-w-2xl bg-white/70 dark:bg-gray-900/80 rounded-3xl shadow-2xl border-2 border-transparent bg-clip-padding backdrop-blur-lg p-8 animate-fade-in-up border-gradient-to-br from-purple-500 via-fuchsia-400 to-blue-400 dark:from-purple-700 dark:via-pink-700 dark:to-blue-700">
+          <div className="flex justify-between items-center mb-6">
+            <div className="flex items-center gap-3">
+              <span className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-2xl shadow">{mail.email?.[0]?.toUpperCase() || "M"}</span>
+              <h1 className="text-2xl font-extrabold text-gray-800 dark:text-gray-100 tracking-tight">{mail.email}</h1>
+            </div>
             <button
               onClick={handleBackClick}
-              className="text-gray-600 hover:text-gray-800"
+              className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full p-3 shadow-lg hover:scale-110 hover:shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-purple-500"
+              aria-label="Back"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                className="w-6 h-6"
-              >
-                <path
-                  d="M9.195 18.44c1.25.714 2.805-.189 2.805-1.629v-2.34l6.945 3.968c1.25.715 2.805-.188 2.805-1.628V8.69c0-1.44-1.555-2.343-2.805-1.628L12 11.029v-2.34c0-1.44-1.555-2.343-2.805-1.628l-7.108 4.061c-1.26.72-1.26 2.536 0 3.256l7.108 4.061Z"
-                  fill="currentColor"
-                />
-              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" className="w-6 h-6"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
             </button>
           </div>
-          <p className="text-gray-700 mb-4 text-lg">{mail.subject}</p>
-          <p className="text-gray-600">{mail.plainMessage}</p>
+          <div className="mb-4">
+            <p className="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">{mail.subject}</p>
+            <div className="text-gray-600 dark:text-gray-300 text-base whitespace-pre-line break-words bg-white/40 dark:bg-gray-800/40 rounded-xl p-4 shadow-inner">
+              {mail.plainMessage}
+            </div>
+          </div>
         </div>
       ) : (
-        <p className="text-gray-800">No mail selected.</p>
+        <p className="text-gray-800 dark:text-gray-200 text-lg font-semibold">No mail selected.</p>
       )}
-    </div>
+      <style>{`
+        @keyframes fade-in-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in-up { animation: fade-in-up 0.8s cubic-bezier(.39,.575,.565,1) both; }
+        .border-gradient-to-br { border-image: linear-gradient(to bottom right, #a21caf, #f472b6, #60a5fa) 1; }
+        .dark .border-gradient-to-br { border-image: linear-gradient(to bottom right, #7c3aed, #db2777, #2563eb) 1; }
+      `}</style>
     </div>
   )
 }

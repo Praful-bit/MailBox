@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import "./App.css";
 import Login from "./components/Auth/Login";
-// import { Outlet } from "react-router-dom";
 import Inbox from './components/Inbox/Inbox'
 
 function App() {
@@ -12,7 +11,7 @@ function App() {
       {!auth && <Login />}
       {auth &&       
           <div>
-            <Inbox />          
+            <Inbox />
           </div>
        
       }

@@ -7,12 +7,16 @@ import store from "./store/index.js";
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import SentMail from "./components/SentMail/SentMail.jsx";
 import InputBoxMailContent from "./components/Inbox/InputBoxMailContent.jsx";
+import UnreadMailBox from "./components/Inbox/UnreadMailBox.jsx";
+import DeletedMails from "./components/Inbox/DeletedMails.jsx";
 
 const router  = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App/>}>
      <Route path="/inbox" element={<InputBoxMailContent/>}/>
      <Route path ="/sentmail" element={<SentMail/>}/>
+     <Route path ="/unread" element={<UnreadMailBox/>}/>
+     <Route path ="/deleted" element={<DeletedMails/>}/>
     </Route>
   )
 )

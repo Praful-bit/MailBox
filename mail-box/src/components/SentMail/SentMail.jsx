@@ -37,51 +37,34 @@ function SentMail() {
     };
     
     return (
-      <div className="bg-gray-100 py-4 px-4 w-full">
+      <div className="w-full min-h-screen bg-gradient-to-br from-blue-50 via-purple-100 to-pink-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-700 p-6">
         <Link to="/sentmail" />
-        <div className="w-full bg-white p-4 rounded-lg shadow-md">
+        <div className="w-[100vw] max-w-6xl mx-auto bg-white/60 dark:bg-gray-900/70 rounded-3xl shadow-2xl backdrop-blur-lg p-6 border border-white/30 dark:border-gray-700/40">
           {selectedMailId ? (
              <ReadMailForSent mailId={selectedMailId}/>
           ):(
-            <div>
-            {
-              mailData.map((data) => (
-                <div
-                  key={data.id}
-                  className="mb-6 p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200 cursor-pointer flex items-center"
-                >
-                  <input 
-                    className="mr-4 w-3 h-3 text-blue-600 border-gray-300 rounded focus:ring-blue-500" 
-                    type="checkbox" 
-                  />
-                  <ul className="list-none flex flex-1 items-center" onClick={() => handleClick(data.id)} >
-                    <li className="flex-1 text-black">{data.email}</li>
-                    {/* <li>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6 text-gray-600 mr-8"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
-                        />
-                      </svg>
-                    </li> */}
-                    <li className="flex-1 text-black">{data.subject}</li>
-                    <li className="flex-1 text-gray-400">{data.plainMessage}</li>
-                  </ul>
-                </div>
-                
-              ))
-          }
-          </div>
+            <div className="flex flex-col gap-6">
+              {mailData.length > 0 ? (
+                mailData.map((data) => (
+                  <div
+                    key={data.id}
+                    className="group flex items-center gap-4 p-5 rounded-2xl bg-gradient-to-r from-purple-100/60 via-pink-100/60 to-blue-100/60 dark:from-purple-900/40 dark:via-pink-900/40 dark:to-blue-900/40 border border-transparent hover:border-purple-400 dark:hover:border-fuchsia-500 shadow-lg hover:scale-[1.025] transition-all duration-300 cursor-pointer relative backdrop-blur-md"
+                    onClick={() => handleClick(data.id)}
+                  >
+                    <div className="flex items-center gap-4">
+                      <span className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg shadow">{data.email?.[0]?.toUpperCase() || "M"}</span>
+                      <span className="font-semibold text-gray-800 dark:text-gray-100 truncate max-w-[180px] md:max-w-[240px]">{data.email}</span>
+                    </div>
+                    <span className="text-gray-600 dark:text-gray-300 flex-1 truncate mx-4 text-base">{data.subject}</span>
+                    <span className="text-gray-400 dark:text-gray-400 flex-1 truncate hidden md:block">{data.plainMessage}</span>
+                    <span className="ml-4 px-3 py-1 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-bold shadow-lg">Sent</span>
+                  </div>
+                ))
+              ) : (
+                <p className="text-center text-gray-600 dark:text-gray-300">No sent mails found.</p>
+              )}
+            </div>
           )}
-           
         </div>
       </div>
 )
