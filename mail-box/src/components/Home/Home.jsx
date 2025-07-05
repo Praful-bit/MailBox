@@ -5,6 +5,7 @@ import "react-quill/dist/quill.snow.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { mailAction } from "../../store/Mail";
 import useSend from "../Hooks/UseSend";
+import emailjs from '@emailjs/browser';
 
 function Home() {
   const [email, setEmail] = useState("");
@@ -37,20 +38,50 @@ function Home() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const url = `https://mail-box-1c3dd-default-rtdb.firebaseio.com/`;
+
+    const url = `https://mail-box-1c3dd-default-rtdb.firebaseio.com`;
     const editor = quillRef.current.getEditor();
-    const plainMessage = editor.getText();
-    const sendData = { email, subject, plainMessage };
-    if (sendData.email !== null) {
-      await sendMail(`${url}/mail.json`, sendData);
+    const plainMessage = editor.getText(); // plain text
+    const htmlMessage = message; // html version
+
+    const localEmail = localStorage.getItem("email");
+
+    const sendData = {
+      senderEmail: localEmail,
+      receiverEmail: email,
+      subject,
+      body: plainMessage,
+      html: htmlMessage,
+    };
+
+    // Save to database (sent)
+    await sendMail(`${url}/sent.json`, sendData);
+
+    // Save to database (inbox/received)
+    await sendMail(`${url}/inbox.json`, sendData);
+
+    // Send real email using EmailJS
+    try {
+      await emailjs.send(
+        'service_filu7dj',         // ✅ your service ID
+        'template_v0qjphs',        // ✅ your template ID
+        {
+          from_email: localStorage.getItem("email"),
+          to_email: email,
+          subject: subject,
+          message: plainMessage,
+        },
+        'PUItYeZCzAGj5KrKp'         // ✅ your public key (user ID)
+      );
+      console.log("Email sent successfully");
+    } catch (err) {
+      console.error("EmailJS error:", err);
     }
-    const receive = { email, subject, plainMessage };
-    if (receive) {
-      await sendMail(`${url}/mail.json`, receive);
-    }
+
+    // Reset form
     setEmail('');
-    setMessage('');
     setSubject('');
+    setMessage('');
   };
 
   return (
@@ -69,7 +100,7 @@ function Home() {
               onClick={() => dispatch(mailAction.toggleCompose())}
               aria-label="Close"
             >
-             X
+              X
             </button>
           </div>
 

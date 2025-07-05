@@ -1,7 +1,7 @@
 // import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { mailAction } from '../../store/Mail';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import ReadMailForSent from '../ReadMail/ReadMailForSent';
 import UseFetch from '../Hooks/UseFetch';
 
@@ -32,7 +32,7 @@ function SentMail() {
                 >
                   <div className="flex items-center gap-4">
                     <span className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg shadow">
-                      {data.email?.[0]?.toUpperCase() || "M"}
+                      {data.email?.[0]?.toUpperCase() || "null"}
                     </span>
                     <span className="font-semibold text-gray-800 dark:text-gray-100 truncate max-w-[180px] md:max-w-[240px]">
                       {data.email}
